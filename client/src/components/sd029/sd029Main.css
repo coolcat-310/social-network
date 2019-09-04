@@ -1,0 +1,7 @@
+.wrapper {
+    overflow-x: scroll;
+}
+
+.wrapper table {
+    white-space: nowrap;
+}

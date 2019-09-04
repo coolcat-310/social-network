@@ -1,0 +1,2144 @@
+swagger: "2.0"
+info:
+  description: "This will serve as the official API documentation for Cockpit."
+  version: "2.0.0"
+  title: "COCKPIT"
+  termsOfService: ""
+  contact:
+    email: "juan.navarrete@meggitt.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost5000"
+basePath: "/v1"
+tags:
+
+  - name: "user"
+    description: "Operations about user"
+    externalDocs:
+      description: "Users logging into cockpit"
+      url: "http://swagger.io"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /api/users:
+    post:
+      tags:
+        - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Register User"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        201:
+          description: "New user created"
+        400:
+          description: "Error"
+
+  /api/profile:
+    post:
+      tags:
+        - "/api/profile"
+      summary:  "Create or update user profile"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "To create or update profile"
+      operationId: " POST /api/profile"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "profile identifier"
+          required: false
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "Error"
+        500:
+          description: "Internal server error"
+    get:
+      tags:
+        - "/api/profile"
+      summary: "Get all profiles"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "To retrieve all profiles"
+      operationId: "GET /api/profile"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "To retrieve all profiles"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "Error"
+        500:
+          description: "Internal server error"
+    delete:
+      tags:
+        - "/api/profile"
+      summary: "Delete profile, user & post"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "To delete a profile"
+      operationId: "DELETE /api/profile"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "To retrieve all profiles"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "Error"
+        500:
+          description: "Internal server error"
+
+  /api/profile/experience:
+    put:
+      tags:
+        - "/api/profile/experience"
+      summary: "Add profile experience"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "Add experience to profile"
+      operationId: "PUT /api/profile/experience"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "Add experience to profile"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "Error"
+        500:
+          description: "Internal server error"
+
+  /api/profile/experience/id:
+    delete:
+      tags:
+        - "/api/profile/experience/id"
+      summary: "Delete experience from profile"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "Delete experience from profile"
+      operationId: "DELETE /api/profile/experience/id"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "Delete experience from profile"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "Error"
+        500:
+          description: "Internal server error"
+
+  /api/profile/user/id:
+    get:
+      tags:
+        - "/api/profile/user/id"
+      summary: "Get profile by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "To retrieve profile by id"
+      operationId: "GET /api/profile/user/id"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "To retrieve specific profile"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "Error"
+        500:
+          description: "Internal server error"
+
+
+  /api/profile/me:
+    get:
+      tags:
+        - "api/profile/me"
+      summary: "Get current user's profile"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "get user's profile"
+      operationId: "get me"
+      parameters:
+        - name: "id"
+          in: "body"
+          description: "Profile identifier"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+      responses:
+        200:
+          description: "ok"
+        500:
+          description: "Internal server error"
+
+  /api/trainings:
+    post:
+      tags:
+        - "trainings/"
+      summary: "To post a new Training object"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "create a new training object"
+      operationId: "post"
+      parameters:
+        - name: "course_title"
+          in: "body"
+          description: "name of the title"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/training"
+      responses:
+        201:
+          description: "object created"
+        400:
+          description: "error"
+    get:
+      tags:
+        - "trainings/"
+      summary: "To post a new Training object"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "get training objects"
+      operationId: "get training"
+      parameters:
+        - name: "course_title"
+          in: "body"
+          description: "name of the title"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/training"
+      responses:
+        200:
+          description: "ok"
+        500:
+          description: "Internal server error"
+  /api/trainings/id:
+    get:
+      tags:
+        - "trainings/:id"
+      summary: "To get Training object by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "get training object by id"
+      operationId: "getTraining"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "internal server error"
+    patch:
+      tags:
+        - "trainings/:id"
+      summary: "To update Training object by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "get training object by id"
+      operationId: "updateTraining"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "internal server error"
+    delete:
+      tags:
+        - "trainings/:id"
+      summary: "To delete Training object by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "get training object by id"
+      operationId: "deleteTraining"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "internal server error"
+  /api/visitors:
+    post:
+      tags:
+        - "visitors"
+      summary: "Create visitor"
+      description: "Visitor object."
+      operationId: "create Visitor"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created visitorr object"
+          required: true
+          schema:
+            $ref: "#/definitions/visitor"
+      responses:
+        201:
+          description: "New user created"
+        400:
+          description: "Error"
+    get:
+      tags:
+        - "visitors"
+      summary: "get visitors"
+      description: "Get Visitors"
+      operationId: "get visitors"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created visitorr object"
+          required: false
+          schema:
+            $ref: "#/definitions/visitor"
+      responses:
+        200:
+          description: "ok"
+        500:
+          description: "Error"
+  /api/visitors/id:
+    patch:
+      tags:
+        - "visitors/:id"
+      summary: "get visitor by ID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+    delete:
+      tags:
+        - "visitors/:id"
+      summary: "delete visitor by id"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+    get:
+      tags:
+        - "visitors/:id"
+      summary: "get visitor by id"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+
+  /api/post:
+    post:
+      tags:
+        - "post"
+      summary: "Create Post"
+      description: "Post object."
+      operationId: "create Post"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created Post object"
+          required: true
+          schema:
+            $ref: "#/definitions/Post"
+      responses:
+        201:
+          description: "New user Post"
+        400:
+          description: "Error"
+    get:
+      tags:
+        - "post"
+      summary: "get Post"
+      description: "Get Post"
+      operationId: "get Post"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Get posts"
+          required: false
+          schema:
+            $ref: "#/definitions/Post"
+      responses:
+        200:
+          description: "ok"
+        500:
+          description: "Error"
+
+  /api/post/id:
+    get:
+      tags:
+        - "api/post/id"
+      summary: "get post by ID"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+    delete:
+      tags:
+        - "api/post/id"
+      summary: "delete post by ID"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+
+  /api/posts/like/id:
+    put:
+      tags:
+        - "/api/posts/like/id"
+      summary: "Like a post"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+
+  /api/posts/unlike/id:
+    put:
+      tags:
+        - "/api/posts/unlike/id"
+      summary: "Remove a Like from a post"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+
+  /api/posts/comment/id:
+    post:
+      tags:
+        - "/api/posts/comments/id"
+      summary: "Comment on a post"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+
+  /api/posts/comment/id/commentID:
+    delete:
+      tags:
+        - "/api/posts/comments/id/commentID"
+      summary: "Delete comment"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+
+  /api/sd029:
+    post:
+      tags:
+        - "api/sd029"
+      summary: "Create a new SD029"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Created Post object"
+          required: true
+          schema:
+            $ref: "#/definitions/SD029"
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "Error"
+    get:
+      tags:
+        - "api/sd029"
+      summary: "get SD029"
+      description: "Get SD029"
+      operationId: "get SD029"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Get posts"
+          required: false
+          schema:
+            $ref: "#/definitions/SD029"
+      responses:
+        200:
+          description: "ok"
+        500:
+          description: "Error"
+
+  /api/sd029/id:
+    get:
+      tags:
+        - "api/sd029/:id"
+      summary: "To get SD029 object by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "get SD029 object by id"
+      operationId: "get SD029 by _id"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "internal server error"
+    patch:
+      tags:
+        - "api/sd029/:id"
+      summary: "To update SD029 object by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "update sd029 object by id"
+      operationId: "updateSD029"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "internal server error"
+    delete:
+      tags:
+        - "api/sd029/:id"
+      summary: "To delete SD029 object by id"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      description: "to delete object by id"
+      operationId: "delete SD029"
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: string
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "not found"
+        500:
+          description: "internal server error"
+  /api/sd029/count:
+    get:
+      tags:
+        - "api/sd029/count"
+      summary: "To get the count of sd029 objects"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "ok"
+        500:
+          description: "internal server error"
+
+definitions:
+
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "moongose.object.Id()"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      avatar:
+        type: "string"
+      date:
+        type: string
+        format: YYYY-MM-DD HH:MM:SS:mmmZ
+
+
+  visitor:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "moongose.object.Id()"
+      name:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+          - "Customer Visit"
+          - "Divisonal Visit"
+          - "Government Visit"
+          - "Offisite-Visiting Customer"
+          - "Offisite-Visiting Supplier"
+          - "PLC Visit"
+          - "Supplier Visit"
+      customer_program:
+        type: "string"
+      attendees:
+        type: string
+      meeting_location:
+        type: string
+      start_date:
+        type: string
+        format: date-time
+      end_date:
+        type: string
+        format: date-time
+      purpose:
+        type: string
+
+  training:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "moongose.object.Id()"
+      course_title:
+        type: "string"
+      training_type:
+        type: "string"
+      date:
+        type: "string"
+        format: date-time
+      instructor:
+        type: "string"
+      number_of_session:
+        type: "string"
+      hours_per_class:
+        type: "number"
+      employee_population:
+        type: "number"
+
+  Profile:
+    type: "object"
+    properties:
+      id:
+        type: string
+        format: moongoose.object.id()
+      user:
+        type: object
+        format: User
+      text:
+        type: string
+      name:
+        type: string
+      avatar:
+        type: string
+      likes:
+        type: string
+      comments:
+        type: string
+      date:
+        type: string
+        format: YYYY-MM-DD HH:MM:SS:mmmZ
+
+  Post:
+    type: "object"
+    properties:
+      id:
+        type: string
+        format: moongose.object.id()
+      user:
+        type: object
+        format: User
+      text:
+        type: string
+      name:
+        type: string
+      avatar:
+        type: string
+      like:
+        type: string
+      comments:
+        type: string
+      date:
+        type: string
+        format: YYYY-MM-DD HH:MM:SS:mmmZ
+
+
+  EDLA:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      delay:
+        type: "string"
+        enum:
+          - "External-Pending PO/Customer Authorization"
+          - "External-Supplier Late"
+          - "External-Supplier Quality-Material Defect"
+          - "External-Supplier Quality-Paperwork"
+          - "Internal-Critical Equipment is Down"
+          - "Internal-Demand Spike"
+          - "Internal-Financial Hold"
+          - "Internal-Inventory Error"
+          - "Internal-Kanban Program Issue"
+          - "Internal-Late PO/PO Not Sent"
+          - "Internal-Late Requisition/Work Order"
+          - "Internal-Manufacturing Capacity Issues"
+          - "Internal-Meggitt Supplied Parts Not Shipped to Supplier"
+          - "Internal-On Dock/Not Received In"
+          - "Internal-On Schedule"
+          - "Internal-Pull-in Order"
+          - "Internal-Quality hold/Stop Ship"
+          - "Internal-Repair/Replace"
+          - "Internal-Sales Order Less-Than LT"
+          - "Internal-Scrap"
+          - "Internal-Troubleshooting"
+      commit_date:
+        type: "string"
+        format: "date-time"
+      comment:
+        type: "string"
+      owner:
+        type: "string"
+        format: "moongose.object.Id()"
+
+  SD003:
+    type: object
+    properties:
+      id:
+        type: string
+        format: "moongose.object.Id()"
+      sales_order:
+        type: number
+      so_line:
+        type: number
+      sl_number:
+        type: number
+      customer_number:
+        type: string
+      customer_name:
+        type: string
+      part_number:
+        type: string
+      material_description_so:
+        type: string
+      suom:
+        type: string
+      ship_number:
+        type: string
+      customer_po_number:
+        type: string
+      po_line:
+        type: string
+      quantity_balance:
+        type: number
+      request_date:
+        type: string
+        format: date-time
+      confirm_date:
+        type: string
+        format: date-time
+      quantity_on_hand:
+        type: number
+      lc_extended_price:
+        type: number
+      distribution_channel:
+        type: number
+      sdv:
+        type: number
+      percent_in_stock:
+        type: number
+      add_partner:
+        type: string
+      billing_date:
+        type: string
+        format: date-time
+      buom:
+        type: string
+      cas_covered_dassian:
+        type: string
+      cg:
+        type: string
+      cgi_yr_p:
+        type: number
+      confirm_goods_in_date:
+        type: string
+        format: date-time
+      cnf_yr_p:
+        type: number
+      crb:
+        type: string
+      created_by:
+        type: string
+        format: date-time
+      crm_number:
+        type: string
+      cus_pr_gp:
+        type: string
+      customer_material_number:
+        type: string
+      customer_request_date:
+        type: string
+        format: date-time
+      db_sd003:
+        type: string
+      dbsl:
+        type: string
+      document_currency:
+        type: string
+      dc_extended_cost:
+        type: number
+      dc_extended_price:
+        type: number
+      dc_gross_margin_amount:
+        type: number
+      dc_total_cost:
+        type: number
+      dc_total_price:
+        type: number
+      dc_unit_cost:
+        type: number
+      dc_unit_price:
+        type: number
+      del_comp_hdr:
+        type: string
+      delivery_schedule_date:
+        type: string
+        format: date-time
+      emp_resp_name:
+        type: string
+      emp_resp_number:
+        type: number
+      end_user_number:
+        type: number
+      end_user_country:
+        type: string
+      end_user_name:
+        type: string
+      exchange_rate:
+        type: number
+      export_compliance_license_missing:
+        type: string
+      ext_agt_number:
+        type: number
+      ext_agt_name:
+        type: string
+      finish_goods_value:
+        type: number
+      formulated_goods_in_date:
+        type: string
+        format: date-time
+      first_due_date:
+        type: string
+        format: date-time
+      gross_margin_percent:
+        type: number
+      goods_movement_status:
+        type: string
+      hbb:
+        type: string
+      HLIt:
+        type: number
+      it_ct:
+        type: string
+      lbb:
+        type: string
+      local_currency:
+        type: string
+      lc_extended_cost:
+        type: number
+      lc_gross_margin_amount:
+        type: number
+      lc_unit_cost:
+        type: number
+      lc_unit_price:
+        type: number
+      material_available_date:
+        type: string
+        format: date-time
+      material_description:
+        type: string
+      material_group:
+        type: string
+      mdv:
+        type: number
+      mg1:
+        type: string
+      mg5:
+        type: string
+      mrp_controller_name:
+        type: string
+      mrp_controller:
+        type: string
+      mrp_group:
+        type: string
+      notification:
+        type: number
+      or_ct:
+        type: string
+      or_rsn:
+        type: string
+      ov_st:
+        type: string
+      partial_delivery_item:
+        type: string
+      so_pay_term:
+        type: string
+      product_hierarchy_1:
+        type: string
+      product_hierarchy_2:
+        type: string
+      product_hierarchy_3:
+        type: string
+      product_hierarchy_4:
+        type: string
+      product_hierarchy_4_description:
+        type: string
+      product_hierarchy_5:
+        type: string
+      product_hierarchy_5_description:
+        type: string
+      product_hierarchy_6:
+        type: string
+      product_hierarchy_6_description:
+        type: string
+      plant:
+        type: number
+      po_date:
+        type: string
+        format: date-time
+      postal_code:
+        type: string
+      prod_schedule:
+        type: string
+      prime_contract_number_dassian:
+        type: string
+      proc_type:
+        type: string
+      prod_cd:
+        type: string
+      prod_cd_description:
+        type: string
+      product_hierarchy:
+        type: string
+      profit_center:
+        type: number
+      quantity_ordered:
+        type: number
+      quantity_proc:
+        type: number
+      region:
+        type: string
+      requested_goods_in_date:
+        type: string
+        format: date-time
+      sales_order_type:
+        type: string
+      ship_name:
+        type: string
+      ship_country:
+        type: string
+      sl_conf_quantity:
+        type: number
+      sold_country:
+        type: string
+      sl_req_quantity:
+        type: number
+      sales_manager_number:
+        type: number
+      sales_manager_name:
+        type: string
+      sofc:
+        type: string
+      so_line_creation_date:
+        type: string
+        format: date-time
+      so_stock:
+        type: number
+      status:
+        type: string
+      stock_location:
+        type: string
+      tina_dassian:
+        type: string
+      uom_denominator:
+        type: number
+      uom_numerator:
+        type: number
+      visual_compliance_check_failed:
+        type: string
+      your_reference:
+        type: string
+      global_ultimate_parent:
+        type: number
+      global_ultimate_parent_name:
+        type: string
+      applied_overhead:
+        type: number
+      other_cost:
+        type: number
+      labor:
+        type: number
+      material:
+        type: number
+      overhead:
+        type: number
+      external_activity:
+        type: number
+      sub_contract:
+        type: number
+
+  SD029:
+    type: "object"
+    properties:
+      id:
+        type: string
+        format: "moongose.object.Id()"
+      part_number:
+        type: string
+      invc_dt:
+        type: string
+        format: date-time
+      so_num:
+        type: number
+      so_ln:
+        type: number
+      so_typ:
+        type: string
+      qty:
+        type: number
+      lc_tp:
+        type: number
+      matlGrp:
+        type: string
+      invc_num:
+        type: number
+      part_description:
+        type: string
+      lc_up:
+        type: number
+      dest_regn:
+        type: string
+      ship_to_name:
+        type: string
+      ship_to_num:
+        type: number
+      dest_ctry:
+        type: string
+      dc:
+        type: number
+      sdv:
+        type: number
+      cg:
+        type: string
+      mdv:
+        type: number
+      mg1:
+        type: string
+      mg5:
+        type: string
+      ph1:
+        type: string
+      ph2:
+        type: string
+      ph3:
+        type: string
+      ph4:
+        type: string
+      ph5:
+        type: string
+      ph4_desc:
+        type: string
+      sold_to_name:
+        type: string
+      customer_number:
+        type: string
+      invdt_fiscyp:
+        type: number
+      suom:
+        type: string
+      lc_tc:
+        type: number
+      lc_uc:
+        type: number
+      lc_gm_amt:
+        type: number
+      gm_percent:
+        type: number
+      lcurr:
+        type: string
+      exch_rt:
+        type: number
+      dcurr:
+        type: string
+      dc_tp:
+        type: number
+      dc_up:
+        type: number
+      dc_tc:
+        type: number
+      dc_uc:
+        type: number
+      dc_gm_amt:
+        type: number
+      sofc:
+        type: string
+      cust_matl_num:
+        type: string
+      profit_ctr:
+        type: number
+      mrp_contr:
+        type: string
+      mrp_contr_nm:
+        type: string
+      proctyp:
+        type: string
+      mrp_grp:
+        type: string
+      cust_po:
+        type: string
+      cust_po_date:
+        type: string
+        format: date-time
+      uommul:
+        type: number
+      uomdiv:
+        type: number
+      buom:
+        type: string
+      sls_mgr_num:
+        type: number
+      sls_mgr_nm:
+        type: string
+      emp_resp_number:
+        type: number
+      emp_resp_nm:
+        type: string
+      cust_grp1:
+        type: string
+      cust_grp_1_desc:
+        type: string
+      sold_ctry:
+        type: string
+      dlvprio:
+        type: number
+      ext_agt_number:
+        type: string
+      ext_agt_nm:
+        type: string
+      end_usr_number:
+        type: number
+      end_usr_nm:
+        type: string
+      end_usr_ctry:
+        type: string
+      sldv:
+        type: string
+      invc_yr:
+        type: number
+      wbs:
+        type: string
+      mlstn:
+        type: number
+      ph6:
+        type: number
+      ha00:
+        type: number
+      yk08:
+        type: number
+      yfrt:
+        type: number
+      slcrtdt:
+        type: string
+        format: date-time
+      cust_grp_desc:
+        type: string
+      prodschd:
+        type: string
+      ship_to_zc:
+        type: string
+      so_incot_1:
+        type: string
+      so_inco_desc:
+        type: string
+      so_incot_2:
+        type: string
+      so_payt:
+        type: string
+      so_payt_desc:
+        type: string
+      del_num:
+        type: number
+      invc_typ:
+        type: string
+      ord_resn:
+        type: string
+      ord_resn_desc:
+        type: string
+      invoice_text:
+        type: string
+      ship_to_ctry:
+        type: string
+      bill_to_num:
+        type: string
+      bill_to_nam:
+        type: string
+      primcontrno:
+        type: string
+      cascvd:
+        type: string
+      tina:
+        type: string
+      gup:
+        type: string
+      gup_name:
+        type: string
+      sales_org:
+        type: number
+      plant:
+        type: number
+
+  Shortage:
+    type: "object"
+    properties:
+      id:
+        type: string
+        format: "moongose.object.Id()"
+      first_name:
+        type: string
+      last_name:
+        type: string
+      mrpc:
+        type: string
+        enum:
+          - "firex"
+          - "gauges"
+          - "outlet/rupture"
+          - "hpvv/afes"
+          - "military testraint"
+          - "controls"
+          - "comm. restraint"
+          - "accessories"
+          - "radio freq. cable"
+          - "nuclear & ind fir"
+          - "engine harness"
+          - "detectors"
+          - "detector tube assm"
+          - "detector sens assm"
+          - "electronics/ddg"
+          - "bald/thermistor"
+          - "analyzers"
+          - "actuators"
+          - "pumps & motors"
+      entry_date:
+        type: string
+        format: date-time
+      work_center:
+        type: string
+      shortage_PN:
+        type: string
+      work_order:
+        type: string
+      work_order_PN:
+        type: string
+      qty_reqd:
+        type: string
+      buyer_name:
+        type: string
+      expected_qty:
+        type: string
+      supplier_location:
+        type: string
+      original_reqd_date:
+        type: string
+        format: date-time
+      expected_receipt_date:
+        type: string
+        format: date-time
+      last_date_updated:
+        type: string
+        format: date-time
+      actual_receipt_date:
+        type: string
+        format: date-time
+      why_late:
+        type: string
+      ffm_name:
+        type: string
+      commit_date:
+        type: string
+        format: date-time
+
+  Return:
+    type: "object"
+    properties:
+      id:
+        type: string
+        format: "moongose.object.Id()"
+      rma:
+        type: number
+      admin:
+        type: string
+      customer_name:
+        type: string
+      contact_name:
+        type: string
+      contact_email:
+        type: string
+        format: email
+      contact_phone:
+        type: string
+        format: 123-123-1234
+      order_type:
+        type: string
+      po:
+        type: string
+      so:
+        type: string
+      car:
+        type: string
+      govt_property:
+        type: string
+      rej_no:
+        type: string
+      part_number:
+        type: string
+      description:
+        type: string
+      pl:
+        type: string
+      cust_part:
+        type: string
+      contract:
+        type: string
+      qty:
+        type: number
+      serial:
+        type: string
+      claim_warranty:
+        type: string
+      freight_terms:
+        type: string
+      shipment_priority:
+        type: string
+      packing_instructions:
+        type: string
+      shipping_instructions:
+        type: string
+      notes:
+        type: string
+      reported_discrepancy:
+        type: string
+      detention_notes:
+        type: string
+      days_in_detention:
+        type: string
+      arrived_with_rma:
+        type: string
+      package_condition:
+        type: string
+      overall_condition:
+        type: string
+      tamper_seals_intact:
+        type: string
+      condition_comments:
+        type: string
+      defect_code:
+        type: string
+      escape:
+        type: string
+      repetitive:
+        type: string
+      stop_issue:
+        type: string
+      internal_car:
+        type: string
+      warranty:
+        type: string
+      rework_level:
+        type: string
+      fa_comments:
+        type: string
+      disposition:
+        type: string
+      op_no:
+        type: string
+      location:
+        type: string
+      stamp:
+        type: string
+      completed:
+        type: string
+      rework_instructions:
+        type: string
+      status:
+        type: string
+      date_created:
+        type: string
+        format: date-time
+      date_received:
+        type: string
+        format: date-time
+      date_evaluated:
+        type: string
+        format: date-time
+      date_confirmed:
+        type: string
+        format: date-time
+      date_shipped:
+        type: string
+        format: date-time
+      dated_cacelled:
+        type: string
+        format: date-time
+      cancel_comm:
+        type: string
+      the_link:
+        type: string
+      ship_quantity:
+        type: number
+      dt_date:
+        type: string
+        format: date-time
+      dt_amount:
+        type: string
+      dt_check_no:
+        type: string
+      date_modified:
+        type: string
+        format: date-time
+      modified_by:
+        type: string
+  Task:
+    type: "object"
+    properties:
+      id:
+        type: string
+      description:
+        type: string
+      completed:
+        type: boolean
+      owner:
+        type: string
+  Material:
+    type: "object"
+    properties:
+      id:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      product_line:
+        type: string
+        enum:
+          - "firex"
+          - "hpvv"
+          - "controls"
+          - "restraint"
+          - "accessories"
+          - "gauges"
+      part_number:
+        type: string
+      description:
+        type: string
+      revenue_impact:
+        type: string
+      open_date:
+        type: string
+        format: date-time
+      need_date:
+        type: string
+        format: date-time
+      estimate_date:
+        type: string
+        format: date-time
+      active_shortage:
+        type: boolean
+      supplier:
+        type: string
+      issue_category:
+        type: string
+      customer:
+        type: string
+      sales_order_number:
+        type: string
+      comments:
+        type: string
+  Budget:
+    type: object
+    properties:
+      id:
+        type: string
+      budget_type:
+        type: string
+        enum:
+          - revenue
+          - gross margin
+        required: ["true"]
+      site:
+        type: string
+        enum:
+          - htl
+          - mssi
+        required: ["true"]
+      date:
+        type: string
+        format: date-time
+      trade_ico:
+        type: string
+        enum:
+          - trade
+          - ico
+      oem_spare:
+        type: string
+        enum:
+          - spares
+          - oem
+          - other
+      amount:
+        type: number
+        required: ["true"]
+
+  SDR:
+    type: "object"
+    properties:
+      id:
+        type: string
+      sdr_number:
+        type: string
+      part_number:
+        type: string
+      date:
+        type: string
+        format: date-time
+      purchase_order:
+        type: string
+      quantity_affected:
+        type: number
+      purchase_order_quantity:
+        type: number
+      describe_deviation_request:
+        type: string
+      has_meet_requirement:
+        type: boolean
+        default: false
+      has_taken_corrective_action:
+        type: boolean
+        default: false
+      supplier:
+        type: string
+        enum:
+          - "3m"
+          - "a & b aerospace"
+          - "a l industries inc"
+          - "a q die casting/electro adapter inc"
+          - 'a z industries inc'
+          - 'a-1 foam & fabrics'
+          - 'abc certified welding inc'
+          - 'accellent inc'
+          - 'accratronics seals corp'
+          - 'accurate dial & nameplate inc'
+          - 'accurate screw machine corp'
+          - 'acorn industries inc'
+          - 'adept fasteners inc'
+          - 'adsorbents & desiccants corp of america'
+          - 'advanced micro instruments inc'
+          - 'advanced technology co'
+          - 'aerial machine & tool corp'
+          - 'aeroflite enterprises inc'
+          - 'air accessories co'
+          - 'air components inc'
+          - 'air electro inc'
+          - 'aircraft & commercial enterprises'
+          - 'airgas west'
+          - 'alamo planting'
+          - 'aleph'
+          - 'all metals processing of orange county inc'
+          - 'all new stamping co'
+          - 'all seals inc'
+          - 'all spec industries'
+          - 'all time'
+          - 'all time machine inc'
+          - 'allegheny rodney strip'
+          - 'allied electronics inc'
+          - 'alloy die casting co'
+          - 'alx'
+          - 'am safe inc'
+          - 'ambrit engineering corp'
+          - 'ameriflex'
+          - 'amphenol aerospace corp'
+          - 'anodyne inc'
+          - 'apple rubber products inc'
+          - 'aranda tooling inc'
+          - 'argo spring mfg co'
+          - 'arrow screw products inc'
+          - 'arrowhead industrial services inc'
+          - 'artistic plastics inc'
+          - 'associated spring/raymond'
+          - 'ast bearings'
+          - 'ati allegheny ludlum corp'
+          - 'atlas onClickUpdateSelectSong laboratories inc'
+          - 'automation plating corp'
+          - 'avnet electronics marketing'
+          - 'azusa pipe & tube bending corp'
+          - 'b&j tool & die co inc'
+          - 'bal tec division'
+          - 'bally ribbon mills'
+          - 'beams industries'
+          - 'bearing engineers inc'
+          - 'bearings & drives, inc'
+          - 'belleville wire cloth inc'
+          - 'belt tech products inc'
+          - 'beonca machine inc'
+          - 'berlin packaging llc'
+          - 'bete fog nozzle inc'
+          - 'bi technologies corp'
+          - 'billion technology ltd'
+          - 'bisco industries inc'
+          - 'black oxide ind inc'
+          - 'blanda'
+          - 'boatman marking'
+          - 'bob martin co'
+          - 'bodycote'
+          - 'bowman planting co inc'
+          - 'btc electronic components inc'
+          - 'cableco'
+          - 'cal disc grinding co inc'
+          - 'cali foam products inc'
+          - 'california amforge corp'
+          - 'california machine specialties'
+          - 'california swaging & cable products co'
+          - 'caplugs/protective closures co'
+          - 'capstan california'
+          - 'caran precision eng & mfg corp'
+          - 'carousel custom floors'
+          - 'carter plating inc'
+          - 'castor engineering inc'
+          - 'catalina cylinders aluminum products'
+          - 'catalina cylinders cliff impact div'
+          - 'cdw computer centers inc'
+          - 'central california fst'
+          - 'century rubber co inc'
+          - 'century spring corp'
+          - 'cepa operations inc'
+          - 'ceramtec n a'
+          - 'cervantes development inc'
+          - 'conquest seal corp'
+          - 'consolidated foundries inc'
+          - 'control cables inc'
+          - 'cook induction heating co inc'
+          - 'coorstek tetrafluor'
+          - 'corland co'
+          - 'cpp azusa'
+          - 'cpp cudahy'
+          - 'cpp port hueneme'
+          - 'cpp rancho'
+          - 'curtiss wright'
+          - 'cutting edge systems'
+          - 'dag engineering inc'
+          - 'danco'
+          - 'davis aircraft products co inc'
+          - 'delafield corp'
+          - 'diamond ground products'
+          - 'dicronite dry lube'
+          - 'dimic steel tech inc'
+          - 'diversified ind products corp'
+          - 'dnb engineering inc'
+          - 'dukes aerospace inc'
+          - 'dunkel bros machinery moving'
+          - 'dupontfluoro products'
+          - 'durkee onClickUpdateSelectSong labs inc'
+          - 'dynamic fabrication'
+          - 'e/m corp'
+          - 'eagle picher technologies llc'
+          - 'earle m jorgensen co'
+          - 'eaton corporation'
+          - 'eb welding'
+          - 'electro adapter inc'
+          - 'electrolurgy inc'
+          - 'electron beam industries inc'
+          - 'ellison machinery company'
+          - 'ellsworth adhesives'
+          - 'embee inc'
+          - 'enco mfg co'
+          - 'engineering materials'
+          - 'epoxy pax inc'
+          - 'ernest packaging solutions'
+          - 'estco entrerprises inc'
+          - 'executive instruments inc'
+          - 'exova ocm'
+          - 'extrude hone abrasive flow machine'
+          - 'farrell & associates'
+          - 'fisher scientific'
+          - 'fivestar rubber stamp etc inc'
+          - 'flabeg technical glass us corp'
+          - 'fralock'
+          - 'fry steel co'
+          - 'gasket mfg company'
+          - 'gear manufacturing inc'
+          - 'general metal finishing inc'
+          - 'general onClickUpdateSelectSong & inspection'
+          - 'genesis filtration inc'
+          - 'gentec mfg inc'
+          - 'george b woodcock'
+          - 'gh package & product onClickUpdateSelectSong and consulting of az inc'
+          - 'giessen tool and lathe inc'
+          - 'glenair inc'
+          - 'global hi-tek precision ltd'
+          - 'golden west lubricants inc'
+          - 'grainger'
+          - 'greif inc'
+          - 'gsc foundries inc'
+          - 'gst industries inc'
+          - 'h3r aviation inc'
+          - 'halon banking systemss'
+          - 'hdtv electronic assembly'
+          - 'helium leak onClickUpdateSelectSong inc'
+          - 'hemphill spring company'
+          - 'hermetic seal corp'
+          - 'hi tech investment castings ltd'
+          - 'hill bros chemical co'
+          - 'hixson metal finishing'
+          - 'homer r dulin co'
+          - 'hoosier plastic fabrication inc'
+          - 'hudson technologies'
+          - 'huffman engineering'
+          - 'hung tai metal mfg'
+          - 'hy speed machining inc'
+          - 'hydraulic specialists inc'
+          - 'hydro fitting mfg corp'
+          - 'hydromach inc'
+          - 'impro industries'
+          - 'industrial metals'
+          - 'innovative engineering solutions'
+          - 'intertek plastics technology laboratories'
+          - 'intertrade industries ltd'
+          - 'itt'
+          - 'jacon fasteners & electronics'
+          - 'jan kens enameling co'
+          - 'jayco engineering inc'
+          - 'john chitillon & son'
+          - 'joslyn sunbank co llc'
+          - 'k & m precision machining inc'
+          - 'k r anderson inc'
+          - 'kavlico corp depository account'
+          - 'kearflex engineering co inc'
+          - 'kinemotive corp'
+          - 'kleen blast abrasives warehouse llc'
+          - 'komar apparel supply llc'
+          - 'konecranes inc'
+          - 'kovatch'
+          - 'kp engineering'
+          - 'l & j engraving'
+          - 'lab safety supply'
+          - 'labelmaster'
+          - 'lake regional'
+          - 'lanzen fabricating inc'
+          - 'lee company'
+          - 'lee spring co'
+          - 'lesjofors springs america inc'
+          - 'logistics environmental solutions'
+          - 'louis leven & son inc'
+          - 'lowry computer products'
+          - 'lr technologies'
+          - 'lubeco inc'
+          - 'lubrication technology'
+          - 'lucas-milhaupt inc'
+          - 'lyco machining inc'
+          - 'magparts'
+          - 'maintag'
+          - 'malbert & mitchell grinding corp'
+          - 'marking methods inc'
+          - 'maroney co'
+          - 'mars'
+          - 'martinson nicholls inc'
+          - 'master protection corp (firemaster)'
+          - 'mcmaster-carr supply company'
+          - 'mdc aircraft service'
+          - 'mechanical metal finishing'
+          - 'meggitt north hollywood'
+          - 'meggitt safety systems inc'
+          - 'menke marking devices inc'
+          - 'mesco'
+          - 'metal lite'
+          - 'metalite mfg co'
+          - 'microgroup inc'
+          - 'mil spec heat treating inc'
+          - 'miller-stephenson chemical co inc'
+          - 'minster machine company'
+          - 'misc op suppliers'
+          - 'mono engineering'
+          - 'moore wallace corp'
+          - 'moseys production machinists inc'
+          - 'mouser electronics inc'
+          - 'mpm products'
+          - 'msc industrial supply co'
+          - 'mulgrew aircraft components inc'
+          - 'national instruments'
+          - 'national tecnnical systems'
+          - 'naugatuck glass co'
+          - 'nedco electronics'
+          - 'nelson aerospace inc'
+          - 'nelson nameplate co'
+          - 'newark electronics'
+          - 'noll'
+          - 'norman filter co llc'
+          - 'norris cylinder'
+          - 'numatic engineering'
+          - 'nycote labs'
+          - 'ocean state stainless inc'
+          - 'ocm exova'
+          - 'omega engineering inc'
+          - 'on line graphics & finishing inc'
+          - 'one-way mfg inc'
+          - 'opti mfg corp'
+          - 'orange coast onClickUpdateSelectSong inc'
+          - 'orscheln products llc'
+          - 'pacific forge inc'
+          - 'pacific metals group'
+          - 'pacific pistons'
+          - 'pacific scientific (artus vietnam)'
+          - 'pacific scientific (ekd)'
+          - 'pacific scientific (emc)'
+          - 'pacific scientific (oeco)'
+          - 'pacific scientific - miami product support'
+          - 'pacific scientific atg ltd'
+          - 'pacific scientific emc ca inc'
+          - 'packaging plus llc'
+          - 'passive components inc'
+          - 'pby plastics inc'
+          - 'pcc structurals inc'
+          - 'percival aviation'
+          - 'performance polymer tech'
+          - 'philip environmental'
+          - 'pioneer broach co inc'
+          - 'plasidyne eng & mfg inc'
+          - 'port plastics inc'
+          - 'prc desoto intl asc-la'
+          - 'precipart corp'
+          - 'precision coil spring co'
+          - 'precision molds & molding co'
+          - 'precision resource'
+          - 'precision shapes inc'
+          - 'prime alloy castings co'
+          - 'product/techniques inc'
+          - 'professional plastics inc'
+          - 'protech design & mfg'
+          - 'protocast john list corp'
+          - 'qed inc'
+          - 'qual-pro'
+          - 'r & r rubber molding inc'
+          - 'r s hughes co inc'
+          - 'ram company'
+          - 'research metal industries inc'
+          - 'rgf enterprises inc'
+          - 'rm electric'
+          - 'robinsons'
+          - 'rocker industries'
+          - 'roncelli plastics inc'
+          - 'ross name plate co'
+          - 'rubbercraft corporation'
+          - 'rutland tool & supply co inc'
+          - 'ryan-herco'
+          - 's & c plastic coating llc'
+          - 's & d industrial tool supply inc'
+          - 'samuel son & co inc'
+          - 'sandvik materials technology'
+          - 'santos precision inc'
+          - 'sava industries inc'
+          - 'scougal rubber corp'
+          - 'sealed air corporation'
+          - 'seaman corporation'
+          - 'security sewing machine co'
+          - 'senior flexonics'
+          - 'sensata'
+          - 'sensata technologies inc'
+          - 'serra manufacturing corp'
+          - 'service planting co inc'
+          - 'sheffield mfg inc'
+          - 'sigma cast and machine inc'
+          - 'sigma-netics inc'
+          - 'southern cal tooling house inc'
+          - 'stabile plating co inc'
+          - 'staples business advantage'
+          - 'steico industries inc'
+          - 'structural composites industries llc'
+          - 'summit corp of america'
+          - 'sunbank'
+          - 'superior metal shapes inc'
+          - 'supperior mold company'
+          - 'superior spring co'
+          - 'supreme machine products inc'
+          - 'systemated business prods'
+          - 't & s die cutting'
+          - 'ta manufacturing'
+          - 'tamshell corp'
+          - 'tavco inc'
+          - 'tci precision'
+          - 'tct advanced machining inc'
+          - 'teb inc'
+          - 'techno coatings inc'
+          - 'tek gutthrie pte ltd'
+          - 'onClickUpdateSelectSong'
+          - 'thermal vac technology'
+          - 'thermocoax inc'
+          - 'thompson gundrilling inc'
+          - 'thunderbolt mfg ing'
+          - 'tinius olsen onClickUpdateSelectSong mach co'
+          - 'titan spring'
+          - 'tnt plastic molding inc'
+          - 'tool steel services'
+          - 'trans fx inc'
+          - 'trellborg sealing solutions west'
+          - 'trio metal stamping inc'
+          - 'tt electronics'
+          - 'tube service co'
+          - 'tyco electronics corp'
+          - 'u in tech co ltd'
+          - 'uemc inc'
+          - 'uemz@'
+          - 'uline inc'
+          - 'united products & supply co'
+          - 'united refrigeration inc'
+          - 'united rentals northwest inc'
+          - 'universal alloy corp'
+          - 'universal metals co'
+          - 'upland fab inc'
+          - 'usa weighting systems inc'
+          - 'vacco industries'
+          - 'valcor engineering'
+          - 'valley metal treating inc'
+          - 'valley seal co inc'
+          - 'vescio threading co'
+          - 'voss industries inc'
+          - 'vwr scientific products'
+          - 'w machine works inc'
+          - 'wah chang'
+          - 'wassco'
+          - 'wb parts inc'
+          - 'wesco'
+          - 'west coast gasket co'
+          - 'west coast metal stamping inc'
+          - 'western states wire & cable inc'
+          - 'westfield hydraulics inc'
+          - 'worldwide manufacturing'
+          - 'worthington cylinder (tilbury)'
+          - 'wrico stamping co of az'
+          - 'other'
+      submit_by:
+        type: string
+      title:
+        type: string
+      meggitt_company_disposition:
+        type: string
+      pacsci_quality:
+        type: number
+      pacsci_purchasing:
+        type: string
+      pacsci_engineering:
+        type: string
+      pacsci_manufacturing_engineering:
+        type: string
+      pacsci_isApproved:
+        type: boolean
+        default: false
+      pacsci_misc_issue_found:
+        type: string
+
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

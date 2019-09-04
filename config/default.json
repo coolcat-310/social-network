@@ -1,0 +1,7 @@
+{
+  "mongoURI": "mongodb+srv://admin:admin@cluster0-8odnk.mongodb.net/test?retryWrites=true&w=majority",
+  "MONGODB_URL":"mongodb://127.0.0.1:27017/social_media",
+  "jwtSecret": "tokensecret",
+  "githubClentId": "2dce878fba5432407419",
+  "githubSecret": "ba87cc2f1a0340f10629f850589a655782374194"
+}
